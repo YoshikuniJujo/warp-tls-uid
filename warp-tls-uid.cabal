@@ -3,6 +3,7 @@ cabal-version: >= 1.8
 
 name: warp-tls-uid
 version: 0.1.0.0
+license: BSD3
 
 Flag test
     Description: test
