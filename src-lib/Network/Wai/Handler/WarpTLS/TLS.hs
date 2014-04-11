@@ -1,5 +1,5 @@
 module Network.Wai.Handler.WarpTLS.TLS (
-	Params(pCiphers, pCertificates, pAllowedVersions),
+	Params(pCiphers, pCertificates, pAllowedVersions, pUseSecureRenegotiation),
 	Backend(Backend, backendSend, backendRecv, backendFlush, backendClose),
 	contextNew, handshake, sendData, recvData, bye,
 

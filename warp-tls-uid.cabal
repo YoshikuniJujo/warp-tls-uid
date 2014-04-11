@@ -4,7 +4,7 @@ cabal-version: >= 1.8
 category: Yesod
 
 name: warp-tls-uid
-version: 0.1.0.0
+version: 0.1.0.4
 stability: Experimental
 
 author:		Yoshikuni Jujo <PAF01143@nifty.ne.jp>
@@ -23,7 +23,7 @@ source-repository head
 source-repository this
     type: git
     location: git://github.com/YoshikuniJujo/warp-tls-uid
-    tag: 0.1.0.0
+    tag: 0.1.0.4
 
 Flag test
     Description: test

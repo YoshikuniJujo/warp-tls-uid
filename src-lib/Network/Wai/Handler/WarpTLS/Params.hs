@@ -1,7 +1,8 @@
 module Network.Wai.Handler.WarpTLS.Params (makeParams) where
 
 import Network.Wai.Handler.WarpTLS.TLS (
-	Params(pCiphers, pCertificates, pAllowedVersions), defaultParamsServer,
+	Params(pCiphers, pCertificates, pAllowedVersions, pUseSecureRenegotiation),
+	defaultParamsServer,
 	ServerParams(serverWantClientCert), updateServerParams,
 	Version(SSL3, TLS10, TLS11, TLS12), PrivateKey(PrivRSA),
 	cipher_AES128_SHA1, cipher_AES256_SHA1,
@@ -25,6 +26,7 @@ makeParams crts pk = initParam { pCertificates =
 initParam :: Params
 initParam = updateServerParams (\sp -> sp { serverWantClientCert = False }) $
 	defaultParamsServer {
+		pUseSecureRenegotiation = True,
 		pAllowedVersions = [SSL3, TLS10, TLS11, TLS12],
 		pCiphers = [
 			cipher_AES128_SHA1, cipher_AES256_SHA1,
