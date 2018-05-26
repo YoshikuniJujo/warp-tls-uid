@@ -42,6 +42,10 @@ executables:
     - warp-tls
     - http-types
     - blaze-builder
+    - bytestring
+    - network
+    - streaming-commons
+    - unix
 
 tests:
   warp-tls-uid-test:
