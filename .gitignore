@@ -1,2 +1,4 @@
 /dist/
 /ebuilds/
+*_key_ngrd.pem
+*_key.pem
