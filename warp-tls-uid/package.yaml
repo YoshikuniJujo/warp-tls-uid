@@ -1,10 +1,10 @@
 name:                warp-tls-uid
-version:             0.2.0.0
-github:              "githubuser/warp-tls-uid"
+version:             0.2.0.1
+github:              "YoshikuniJujo/warp-tls-uid"
 license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2018 Author name here"
+author:              "Yoshikuni Jujo"
+maintainer:          "PAF01143[at]nifty.ne.jp"
+copyright:           "2018 Yoshikuni Jujo"
 
 extra-source-files:
 - README.md
@@ -17,7 +17,7 @@ category:            Web
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/warp-tls-uid#readme>
+description:         Please see the README on GitHub at <https://github.com/YoshikuniJujo/warp-tls-uid#readme>
 
 ghc-options:
 - -Wall
