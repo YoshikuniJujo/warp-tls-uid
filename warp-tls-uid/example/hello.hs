@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings, BangPatterns #-}
+{-# OPTIONS_GHC -Wall -fno-warn-tabs #-}
 
 module Main where
 
