@@ -17,10 +17,13 @@ import Network.Wai.Handler.WarpTLS (runTLSSocket, tlsSettingsMemory)
 
 import qualified Data.ByteString as BS
 
+type CertFile = FilePath
+type KeyFile = FilePath
+
 type GroupName = String
 type UserName = String
 
-runTlsWithGroupUserName :: (FilePath, FilePath) ->
+runTlsWithGroupUserName :: (CertFile, KeyFile) ->
 	(GroupName, UserName) -> Settings -> Application -> IO ()
 runTlsWithGroupUserName (crt, key) (g, u) set app = do
 	!c <- BS.readFile crt
