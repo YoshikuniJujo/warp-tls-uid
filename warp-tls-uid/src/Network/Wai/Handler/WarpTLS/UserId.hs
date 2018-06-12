@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings, BangPatterns #-}
 
 module Network.Wai.Handler.WarpTLS.UserId (
-	GroupName, UserName, runTlsWithGroupUserName
+	CertFile, KeyFile, GroupName, UserName, runTlsWithGroupUserName
 ) where
 
 import Control.Arrow ((***), (&&&))
