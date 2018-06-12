@@ -6,6 +6,7 @@ module Network.Wai.Handler.WarpTLS.UserId (
 
 import Control.Arrow ((***), (&&&))
 import Control.Exception (bracket)
+import Data.Semigroup ((<>))
 import Data.List (unfoldr)
 import Data.Streaming.Network (bindPortTCP)
 import System.Posix (
