@@ -1,22 +1,26 @@
 {-# LANGUAGE OverloadedStrings, BangPatterns #-}
 
 module Network.Wai.Handler.WarpTLS.UserId (
-	CertFile, KeyFile, GroupName, UserName, runTlsWithGroupUserName
-) where
+	CertFile, KeyFile, GroupName, UserName,
+	runTlsWithGroupUserName, runTlsWithGroupUserNameClientCert ) where
 
 import Control.Arrow ((***), (&&&))
 import Control.Exception (bracket)
 import Data.Semigroup ((<>))
 import Data.List (unfoldr)
+import Data.Default
 import Data.Streaming.Network (bindPortTCP)
+import Data.X509
 import System.Posix (
 	groupID, getGroupEntryForName, setGroupID,
 	userID, getUserEntryForName, setUserID )
 import Network.Socket (Socket, withSocketsDo, close)
+import Network.TLS
 import Network.Wai (Application)
 import Network.Wai.Handler.Warp (
 	Settings, HostPreference, getPort, getHost )
-import Network.Wai.Handler.WarpTLS (runTLSSocket, tlsSettingsChainMemory)
+import Network.Wai.Handler.WarpTLS (
+	runTLSSocket, tlsSettingsChainMemory, TLSSettings(..))
 
 import qualified Data.ByteString as BS
 
@@ -36,6 +40,23 @@ runTlsWithGroupUserName (crt, key) (g, u) set app = do
 		(bindPortTCPWithName (g, u) (getPort set) (getHost set))
 		close
 		(\sock -> runTLSSocket tset set sock app)
+
+type OnClientCertificate = CertificateChain -> IO CertificateUsage
+
+runTlsWithGroupUserNameClientCert :: (CertFile, KeyFile) ->
+	OnClientCertificate ->
+	(GroupName, UserName) -> Settings -> Application -> IO ()
+runTlsWithGroupUserNameClientCert (crt, key) occ (g, u) set app = do
+	(!c, !cs) <- separateChain <$> BS.readFile crt
+	!k <- BS.readFile key
+	let	tset = tlsSettingsChainMemory c cs k
+	withSocketsDo $ bracket
+		(bindPortTCPWithName (g, u) (getPort set) (getHost set))
+		close
+		(\sock -> runTLSSocket tset {
+			tlsWantClientCert = True,
+			tlsServerHooks = def {
+				onClientCertificate = occ } } set sock app)
 
 bindPortTCPWithName ::
 	(GroupName, UserName) -> Int -> HostPreference -> IO Socket
